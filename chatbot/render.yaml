@@ -1,0 +1,13 @@
+# Render.com — Web Service (Python)
+# Dashboard: New → Blueprint hoặc tạo Web Service thủ công, Root Directory = chatbot
+services:
+  - type: web
+    name: emp-chatbot
+    runtime: python
+    rootDir: chatbot
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.0"

@@ -1,0 +1,1 @@
+-- No rollback: auto-approved reviews should remain visible.

@@ -1,0 +1,24 @@
+CREATE TABLE IF NOT EXISTS carts (
+  id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  user_id BIGINT UNSIGNED NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT fk_carts_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  UNIQUE KEY uq_carts_user (user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS cart_items (
+  id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  cart_id BIGINT UNSIGNED NOT NULL,
+  variant_id BIGINT UNSIGNED NOT NULL,
+  quantity INT NOT NULL DEFAULT 1,
+  is_selected TINYINT(1) NOT NULL DEFAULT 1,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT fk_cart_items_cart FOREIGN KEY (cart_id) REFERENCES carts(id) ON DELETE CASCADE,
+  CONSTRAINT fk_cart_items_variant FOREIGN KEY (variant_id) REFERENCES product_variants(id) ON DELETE CASCADE,
+  CONSTRAINT chk_cart_items_quantity CHECK (quantity > 0),
+  UNIQUE KEY uq_cart_items_cart_variant (cart_id, variant_id),
+  INDEX idx_cart_items_cart_created (cart_id, created_at),
+  INDEX idx_cart_items_variant (variant_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

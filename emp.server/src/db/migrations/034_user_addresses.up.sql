@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS user_addresses (
+  id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  user_id BIGINT UNSIGNED NOT NULL,
+  label VARCHAR(80) NULL,
+  recipient_name VARCHAR(120) NOT NULL,
+  recipient_phone VARCHAR(30) NOT NULL,
+  address_line1 VARCHAR(255) NOT NULL,
+  address_line2 VARCHAR(255) NULL,
+  ward VARCHAR(120) NULL,
+  district VARCHAR(120) NOT NULL,
+  province VARCHAR(120) NOT NULL,
+  postal_code VARCHAR(30) NULL,
+  country VARCHAR(10) NOT NULL DEFAULT 'VN',
+  is_default TINYINT(1) NOT NULL DEFAULT 0,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT fk_user_addresses_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  INDEX idx_user_addresses_user (user_id),
+  INDEX idx_user_addresses_default (user_id, is_default)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
