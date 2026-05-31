@@ -1,8 +1,27 @@
+import os
+import re
+
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+_DO_UNRESOLVED = re.compile(r"^\$\{[^}]+\}$")
+
+
+def _reject_unresolved_do_ref(value: object, field: str) -> object:
+    if isinstance(value, str) and _DO_UNRESOLVED.match(value.strip()):
+        raise ValueError(
+            f"{field}={value!r} chưa được DigitalOcean gán giá trị thật. "
+            "Vào component → Environment → Add from database (không gõ ${...} tay)."
+        )
+    return value
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
+    model_config = SettingsConfigDict(
+        env_file=".env" if os.getenv("NODE_ENV") != "production" else None,
+        env_file_encoding="utf-8",
+        extra="ignore",
+    )
 
     chatbot_host: str = "0.0.0.0"
     chatbot_port: int = 8090
@@ -28,6 +47,16 @@ class Settings(BaseSettings):
 
     shop_url: str = "http://localhost:5173"
     local_store_path: str = "data/chatbot.db"
+
+    @field_validator("db_host", "db_user", "db_password", "db_name", mode="before")
+    @classmethod
+    def _check_db_str(cls, value: object) -> object:
+        return _reject_unresolved_do_ref(value, "DB_*")
+
+    @field_validator("db_port", mode="before")
+    @classmethod
+    def _check_db_port(cls, value: object) -> object:
+        return _reject_unresolved_do_ref(value, "DB_PORT")
 
     @property
     def cors_origin_list(self) -> list[str]:

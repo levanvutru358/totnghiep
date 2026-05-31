@@ -3,6 +3,34 @@ import { loadEnv } from './env.config';
 
 loadEnv();
 
+const DO_PLACEHOLDER_HOSTS = new Set([
+    'HOSTNAME',
+    'localhost',
+    '${dev-db-994302.HOSTNAME}',
+]);
+
+const assertDbEnv = (): void => {
+    const host = (process.env.DB_HOST ?? '').trim();
+    if (!host) return;
+
+    if (DO_PLACEHOLDER_HOSTS.has(host) || /^\$\{/.test(host)) {
+        throw new Error(
+            `DB_HOST="${host}" không phải hostname MySQL thật. ` +
+                'Trên DigitalOcean: xóa DB_* → Add Variable → Add from database → ' +
+                'chọn field HOSTNAME (value phải dạng xxx.db.ondigitalocean.com, không gõ chữ HOSTNAME).',
+        );
+    }
+
+    const portRaw = (process.env.DB_PORT ?? '').trim();
+    if (portRaw === 'PORT' || /^\$\{/.test(portRaw)) {
+        throw new Error(
+            `DB_PORT="${portRaw}" chưa được gán. Dùng Add from database → field PORT (vd 25060).`,
+        );
+    }
+};
+
+assertDbEnv();
+
 interface DatabaseConfig {
     host: string;
     port: number;
