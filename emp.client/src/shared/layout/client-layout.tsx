@@ -22,7 +22,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { usePublicContentSync } from '../../features/commerce/hooks/use-public-content-sync'
 import { AuthModalProvider, useAuthModal } from '../../features/auth/context/auth-modal-context'
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
@@ -175,7 +175,7 @@ const ClientLayoutShell = () => {
                 flex="1"
                 display={{ base: 'none', md: 'block' }}
                 as="form"
-                onSubmit={(event) => {
+                onSubmit={(event: FormEvent) => {
                   event.preventDefault()
                   submitSearch()
                 }}

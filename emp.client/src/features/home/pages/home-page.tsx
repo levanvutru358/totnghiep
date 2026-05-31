@@ -1,6 +1,5 @@
 import { CheckCircleIcon, ChevronRightIcon, LockIcon, RepeatIcon, StarIcon, TimeIcon } from '@chakra-ui/icons'
 import {
-  AspectRatio,
   Badge,
   Box,
   Button,

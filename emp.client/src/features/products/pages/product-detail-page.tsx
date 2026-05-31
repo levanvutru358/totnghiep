@@ -157,7 +157,7 @@ export const ProductDetailPage = () => {
         const saved = readCheckoutVoucher()
         const savedPromo = saved ? items.find((p) => p.code === saved) : null
         if (savedPromo && !savedPromo.alreadyUsed) {
-          setSelectedVoucherId(saved)
+          setSelectedVoucherId(savedPromo.code)
         } else {
           setSelectedVoucherId('none')
           if (!items.length || savedPromo?.alreadyUsed) persistCheckoutVoucher(null)

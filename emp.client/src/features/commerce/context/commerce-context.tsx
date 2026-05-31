@@ -648,7 +648,7 @@ export const CommerceProvider = ({ children }: { children: ReactNode }) => {
         items.reduce((sum, item) => sum + item.lineTotal, 0).toFixed(2),
       )
       const shippingFee = Number(input.shippingFee.toFixed(2))
-      const discountAmount = Number(input.discountAmount.toFixed(2))
+      const discountAmount = Number((input.discountAmount ?? 0).toFixed(2))
       const totalAmount = Number(
         Math.max(0, subtotal + shippingFee - discountAmount).toFixed(2),
       )

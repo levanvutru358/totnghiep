@@ -21,12 +21,7 @@ import type { OrderRecord, PaymentRecord } from '../../commerce/types/commerce.t
 export const PaymentCancelPage = () => {
   const [searchParams] = useSearchParams()
   const orderCode = resolveOrderCodeFromPaymentReturn(searchParams)
-  const provider = searchParams.get('provider') ?? 'ZALOPAY'
-  const resultCode = searchParams.get('code') ?? '01'
-  const paymentLinkId = searchParams.get('id') ?? 'N/A'
-  const gatewayStatus = searchParams.get('status') ?? 'CANCELLED'
   const message = searchParams.get('message')
-  const errorCode = searchParams.get('errorCode')
   const returnPaymentCode = searchParams.get('paymentCode')
   const [serverEnabled, setServerEnabled] = useState(() => commerceApi.hasServerToken())
   const [remoteOrder, setRemoteOrder] = useState<OrderRecord | null>(null)

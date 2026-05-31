@@ -221,12 +221,14 @@ export const CheckoutPage = () => {
       )
       assertCartCheckoutReady(validation)
 
-      const code = promotionCode !== undefined ? promotionCode : selectedPromotionCode ?? undefined
+      const code =
+        promotionCode !== undefined ? promotionCode : selectedPromotionCode ?? undefined
+      const voucherCode = code == null || code === '' ? undefined : code
       const [preview, methods] = await Promise.all([
         commerceApi.previewCheckout({
           itemIds: apiItemIds.length > 0 ? apiItemIds : undefined,
           paymentMethod: 'E_WALLET',
-          voucherCode: code,
+          voucherCode,
           currencyCode: 'VND',
         }),
         commerceApi.getPaymentMethods().catch(() => paymentMethods),
@@ -335,12 +337,6 @@ export const CheckoutPage = () => {
     setSelectedProvider(pickDefaultCheckoutProvider(activePaymentMethods))
   }, [activePaymentMethods])
 
-  const selectedPaymentMethod = useMemo(
-    () =>
-      activePaymentMethods.find((method) => method.defaultProvider === selectedProvider) ??
-      activePaymentMethods[0],
-    [activePaymentMethods, selectedProvider],
-  )
   const handleInputChange =
     (setter: (value: string) => void) => (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       setter(event.target.value)

@@ -56,6 +56,7 @@ export const buildBuyNowPreview = (
     currencyCode: 'VND',
     shippingFee,
     discountAmount: 0,
+    voucherCode: null,
     subtotal,
     totalAmount: subtotal + shippingFee,
     itemCount: 1,

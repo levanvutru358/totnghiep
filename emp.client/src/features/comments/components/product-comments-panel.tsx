@@ -105,10 +105,10 @@ const CommentRow = ({
   onSaveEdit,
   onDelete,
   onMention,
-  replyFiles,
+  replyFiles: _replyFiles,
   onReplyFilesChange,
   replyPreviewUrls,
-  editFiles,
+  editFiles: _editFiles,
   onEditFilesChange,
   editPreviewUrls,
 }: CommentRowProps) => (
