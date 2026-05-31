@@ -200,6 +200,8 @@ Xem [mục 6.1](#61-emp-server) — **không dùng `DATABASE_URL`**, dùng `DB_H
 | Run Command | `uvicorn main:app --host 0.0.0.0 --port 8080` |
 | HTTP Port | **8080** |
 
+Repo đã có `chatbot/.python-version` = **3.12** (tránh DO mặc định Python 3.14 — `pydantic-core` build lỗi).
+
 #### Environment Variables
 
 Xem [mục 6.2](#62-chatbot).
@@ -324,55 +326,55 @@ Import data dev (tùy chọn): dùng DBeaver/TablePlus kết nối MySQL public 
 
 **Runtime** (scope RUN_TIME):
 
-```env
-# --- Database (từ MySQL attach) ---
-DB_HOST=${dev-db-994302.HOSTNAME}
-DB_PORT=${dev-db-994302.PORT}
-DB_USER=${dev-db-994302.USERNAME}
-DB_PASSWORD=${dev-db-994302.PASSWORD}
-DB_NAME=${dev-db-994302.DATABASE}
+   ```env
+   # --- Database (từ MySQL attach) ---
+   DB_HOST=${dev-db-994302.HOSTNAME}
+   DB_PORT=${dev-db-994302.PORT}
+   DB_USER=${dev-db-994302.USERNAME}
+   DB_PASSWORD=${dev-db-994302.PASSWORD}
+   DB_NAME=${dev-db-994302.DATABASE}
 
-# --- JWT ---
-JWT_ACCESS_SECRET=<chuỗi-bí-mật-dài-cùng-chatbot>
-JWT_ACCESS_EXPIRES_IN=1h
-JWT_REFRESH_EXPIRES_IN=7d
-BCRYPT_ROUNDS=10
-REFRESH_COOKIE_NAME=refreshToken
-REFRESH_COOKIE_PATH=/api/auth
-REFRESH_COOKIE_SECURE=true
-REFRESH_COOKIE_SAMESITE=lax
+   # --- JWT ---
+   JWT_ACCESS_SECRET=<chuỗi-bí-mật-dài-cùng-chatbot>
+   JWT_ACCESS_EXPIRES_IN=1h
+   JWT_REFRESH_EXPIRES_IN=7d
+   BCRYPT_ROUNDS=10
+   REFRESH_COOKIE_NAME=refreshToken
+   REFRESH_COOKIE_PATH=/api/auth
+   REFRESH_COOKIE_SECURE=true
+   REFRESH_COOKIE_SAMESITE=lax
 
-# --- URL (sửa sau khi có domain) ---
-APP_PUBLIC_URL=https://totnghiep-emp-client-xxxxx.ondigitalocean.app
-SERVER_PUBLIC_URL=https://totnghiep-emp-server-xxxxx.ondigitalocean.app
-CORS_ORIGIN=https://totnghiep-emp-client-xxxxx.ondigitalocean.app,https://totnghiep-emp-admin-xxxxx.ondigitalocean.app
+   # --- URL (sửa sau khi có domain) ---
+   APP_PUBLIC_URL=https://totnghiep-emp-client-xxxxx.ondigitalocean.app
+   SERVER_PUBLIC_URL=https://totnghiep-emp-server-xxxxx.ondigitalocean.app
+   CORS_ORIGIN=https://totnghiep-emp-client-xxxxx.ondigitalocean.app,https://totnghiep-emp-admin-xxxxx.ondigitalocean.app
 
-# --- Cloudinary (bắt buộc nếu upload ảnh admin) ---
-CLOUDINARY_CLOUD_NAME=
-CLOUDINARY_API_KEY=
-CLOUDINARY_API_SECRET=
+   # --- Cloudinary (bắt buộc nếu upload ảnh admin) ---
+   CLOUDINARY_CLOUD_NAME=
+   CLOUDINARY_API_KEY=
+   CLOUDINARY_API_SECRET=
 
-# --- PayOS (nếu dùng) — URL = domain emp-server ---
-PAYOS_CLIENT_ID=
-PAYOS_API_KEY=
-PAYOS_CHECKSUM_KEY=
-PAYOS_BASE_URL=https://api-merchant.payos.vn
-PAYOS_WEBHOOK_URL=https://totnghiep-emp-server-xxxxx.ondigitalocean.app/api/payments/callbacks/payos
-PAYOS_RETURN_URL=https://totnghiep-emp-server-xxxxx.ondigitalocean.app/api/payments/return
-PAYOS_RESULT_URL=https://totnghiep-emp-client-xxxxx.ondigitalocean.app/checkout/result
-PAYOS_CANCEL_URL=https://totnghiep-emp-client-xxxxx.ondigitalocean.app/checkout/cancel
-PAYOS_EXPIRE_DURATION_SECONDS=900
+   # --- PayOS (nếu dùng) — URL = domain emp-server ---
+   PAYOS_CLIENT_ID=
+   PAYOS_API_KEY=
+   PAYOS_CHECKSUM_KEY=
+   PAYOS_BASE_URL=https://api-merchant.payos.vn
+   PAYOS_WEBHOOK_URL=https://totnghiep-emp-server-xxxxx.ondigitalocean.app/api/payments/callbacks/payos
+   PAYOS_RETURN_URL=https://totnghiep-emp-server-xxxxx.ondigitalocean.app/api/payments/return
+   PAYOS_RESULT_URL=https://totnghiep-emp-client-xxxxx.ondigitalocean.app/checkout/result
+   PAYOS_CANCEL_URL=https://totnghiep-emp-client-xxxxx.ondigitalocean.app/checkout/cancel
+   PAYOS_EXPIRE_DURATION_SECONDS=900
 
-# --- ZaloPay (nếu dùng) ---
-ZALOPAY_APP_ID=
-ZALOPAY_KEY1=
-ZALOPAY_KEY2=
-ZALOPAY_ENV=sandbox
-ZALOPAY_WEBHOOK_URL=https://totnghiep-emp-server-xxxxx.ondigitalocean.app/api/payments/callbacks/zalopay
-ZALOPAY_RETURN_URL=https://totnghiep-emp-server-xxxxx.ondigitalocean.app/api/payments/return/zalopay
-ZALOPAY_RESULT_URL=https://totnghiep-emp-client-xxxxx.ondigitalocean.app/checkout/result
-ZALOPAY_CANCEL_URL=https://totnghiep-emp-client-xxxxx.ondigitalocean.app/checkout/cancel
-```
+   # --- ZaloPay (nếu dùng) ---
+   ZALOPAY_APP_ID=
+   ZALOPAY_KEY1=
+   ZALOPAY_KEY2=
+   ZALOPAY_ENV=sandbox
+   ZALOPAY_WEBHOOK_URL=https://totnghiep-emp-server-xxxxx.ondigitalocean.app/api/payments/callbacks/zalopay
+   ZALOPAY_RETURN_URL=https://totnghiep-emp-server-xxxxx.ondigitalocean.app/api/payments/return/zalopay
+   ZALOPAY_RESULT_URL=https://totnghiep-emp-client-xxxxx.ondigitalocean.app/checkout/result
+   ZALOPAY_CANCEL_URL=https://totnghiep-emp-client-xxxxx.ondigitalocean.app/checkout/cancel
+   ```
 
 ---
 
@@ -530,7 +532,13 @@ App → chọn component → **Runtime Logs** (runtime) hoặc **Build Logs** (b
 
 ---
 
-### ❌ Build fail TypeScript
+### ❌ Chatbot: `pydantic-core` / Python 3.14
+
+**Triệu chứng:** `Python interpreter version (3.14) is newer than PyO3's maximum supported version (3.13)`.
+
+**Sửa:** Đảm bảo có file `chatbot/.python-version` chứa `3.12`, push GitHub, redeploy. Hoặc trên DO → chatbot → Env: `PYTHON_VERSION` = `3.12.0`.
+
+### ❌ Build fail TypeScript (emp.client)
 
 **Sửa:** Xem Build Logs → sửa lỗi code → push GitHub → autodeploy.
 
