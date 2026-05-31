@@ -4,14 +4,14 @@ Có **2 cách**:
 
 | Cách | Nền tảng | Phù hợp |
 |------|----------|---------|
-| **A. Một cloud** | Chỉ **Railway** (hoặc 1 VPS) | Đơn giản, một tài khoản, một bill |
+| **A. Một cloud** | **Railway** hoặc **DigitalOcean App Platform** | Đơn giản, một tài khoản |
 | **B. Tách cloud** | Vercel + Railway + Render | Frontend CDN nhanh, miễn phí nhiều tier |
 
 ---
 
 # Cách A — Tất cả trên Railway (khuyến nghị “1 cloud”)
 
-**Hướng dẫn chi tiết từng click:** xem **[RAILWAY.md](./RAILWAY.md)**.
+**Hướng dẫn chi tiết từng click:** xem **[RAILWAY.md](./RAILWAY.md)** hoặc **[DIGITALOCEAN.md](./DIGITALOCEAN.md)**.
 
 **Được.** Railway chạy cùng lúc: MySQL + API Node + chatbot Python + 2 frontend Vite.
 
