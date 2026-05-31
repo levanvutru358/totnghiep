@@ -3,21 +3,24 @@ import { loadEnv } from './env.config';
 
 loadEnv();
 
-const DO_PLACEHOLDER_HOSTS = new Set([
-    'HOSTNAME',
-    'localhost',
-    '${dev-db-994302.HOSTNAME}',
-]);
+const DO_MISCONFIGURED_HOSTS = new Set(['HOSTNAME', 'your_db_host']);
 
 const assertDbEnv = (): void => {
+    if (process.env.NODE_ENV !== 'production') return;
+
     const host = (process.env.DB_HOST ?? '').trim();
     if (!host) return;
 
-    if (DO_PLACEHOLDER_HOSTS.has(host) || /^\$\{/.test(host)) {
+    const isPlaceholder =
+        DO_MISCONFIGURED_HOSTS.has(host) ||
+        host === 'localhost' ||
+        /^\$\{/.test(host);
+
+    if (isPlaceholder) {
         throw new Error(
-            `DB_HOST="${host}" không phải hostname MySQL thật. ` +
+            `DB_HOST="${host}" không phải hostname MySQL production. ` +
                 'Trên DigitalOcean: xóa DB_* → Add Variable → Add from database → ' +
-                'chọn field HOSTNAME (value phải dạng xxx.db.ondigitalocean.com, không gõ chữ HOSTNAME).',
+                'chọn field HOSTNAME (value phải dạng xxx.db.ondigitalocean.com).',
         );
     }
 
