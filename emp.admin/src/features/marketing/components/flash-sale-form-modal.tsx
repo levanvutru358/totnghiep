@@ -71,8 +71,13 @@ export const FlashSaleFormModal = ({
               min={0}
               max={100}
               value={form.discountPercent === '' ? '' : form.discountPercent}
-              onChange={(_, value) =>
-                onChange({ ...form, discountPercent: value === '' ? '' : Math.min(100, Number(value) || 0) })
+              onChange={(_, valueAsNumber) =>
+                onChange({
+                  ...form,
+                  discountPercent: Number.isNaN(valueAsNumber)
+                    ? ''
+                    : Math.min(100, valueAsNumber),
+                })
               }
             >
               <NumberInputField placeholder="VD: 13" />

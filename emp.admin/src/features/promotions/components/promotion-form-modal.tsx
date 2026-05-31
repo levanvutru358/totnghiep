@@ -74,7 +74,11 @@ const buildPreviewText = (form: PromotionFormInput) => {
   if (form.discountType === 'FREE_SHIPPING') {
     return `Miễn phí vận chuyển khi đơn từ ${form.minOrderAmount.toLocaleString('vi-VN')}đ`
   }
-  const valueLabel = formatPromotionValue(form.discountType, form.discountValue, form.maxDiscountAmount)
+  const valueLabel = formatPromotionValue(
+    form.discountType,
+    form.discountValue,
+    form.maxDiscountAmount ?? null,
+  )
   return `Giảm ${valueLabel} khi đơn từ ${form.minOrderAmount.toLocaleString('vi-VN')}đ`
 }
 

@@ -137,7 +137,7 @@ const mapProductPrices = (item: { base_price: number; sale_price: number | null 
   const basePrice = toNumberSafe(item.base_price, 0)
   const saleRaw = item.sale_price
   const salePrice =
-    saleRaw !== null && saleRaw !== undefined && saleRaw !== '' ? toNumberSafe(saleRaw, 0) : null
+    saleRaw !== null && saleRaw !== undefined ? toNumberSafe(saleRaw, 0) : null
   const price =
     salePrice !== null && salePrice < basePrice ? salePrice : basePrice
 
@@ -266,7 +266,7 @@ const toProductPayload = (data: CreateProductRequest | UpdateProductRequest) => 
   const basePrice = Number(data.basePrice)
   const saleRaw = data.salePrice
   const salePrice =
-    saleRaw !== null && saleRaw !== undefined && saleRaw !== '' && Number(saleRaw) < basePrice
+    saleRaw !== null && saleRaw !== undefined && Number(saleRaw) < basePrice
       ? Number(saleRaw)
       : null
 

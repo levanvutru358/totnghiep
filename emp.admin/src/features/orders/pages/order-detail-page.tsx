@@ -370,7 +370,7 @@ export const OrderDetailPage = () => {
                 size="sm"
                 colorScheme="purple"
                 isLoading={mutations.ship.isPending}
-                onClick={() => void runAction('Giao hàng', () => mutations.ship.mutateAsync())}
+                onClick={() => void runAction('Giao hàng', () => mutations.ship.mutateAsync({}))}
               >
                 Giao cho đơn vị
               </Button>

@@ -91,7 +91,7 @@ export const CategoryBrandPage = () => {
     if (!name) return
     try {
       await updateCategory.mutateAsync({ id: editingId, name })
-      toast.success(taxonomyUi.category.updateSuccessMessage)
+      toast.success(taxonomyUi.category.updateSuccessMessage ?? 'Đã cập nhật danh mục')
       cancelEdit()
     } catch (error) {
       toast.error(extractApiError(error, 'Không thể cập nhật danh mục'))
@@ -104,7 +104,7 @@ export const CategoryBrandPage = () => {
     try {
       await createCategory.mutateAsync({ name })
       setNewParentName('')
-      toast.success(taxonomyUi.category.createSuccessMessage)
+      toast.success(taxonomyUi.category.createSuccessMessage ?? 'Đã thêm danh mục')
     } catch (error) {
       toast.error(extractApiError(error, 'Không thể thêm nhóm danh mục'))
     }
@@ -125,7 +125,7 @@ export const CategoryBrandPage = () => {
         parentSlug: parent.slug,
       })
       setNewChildName('')
-      toast.success(taxonomyUi.category.createSuccessMessage)
+      toast.success(taxonomyUi.category.createSuccessMessage ?? 'Đã thêm danh mục')
     } catch (error) {
       toast.error(extractApiError(error, 'Không thể thêm loại danh mục con'))
     }
@@ -139,7 +139,7 @@ export const CategoryBrandPage = () => {
     if (!window.confirm(`Xóa danh mục "${item.name}"?`)) return
     try {
       await deleteCategory.mutateAsync(item.id)
-      toast.success(taxonomyUi.category.deleteSuccessMessage)
+      toast.success(taxonomyUi.category.deleteSuccessMessage ?? 'Đã xóa danh mục')
       if (editingId === item.id) cancelEdit()
     } catch (error) {
       toast.error(extractApiError(error, 'Không thể xóa danh mục (có thể đang được sản phẩm sử dụng)'))
@@ -151,7 +151,7 @@ export const CategoryBrandPage = () => {
     if (!name) return
     await createBrand.mutateAsync(name)
     setNewBrand('')
-    toast.success(taxonomyUi.brand.createSuccessMessage)
+    toast.success(taxonomyUi.brand.createSuccessMessage ?? 'Đã thêm thương hiệu')
   }
 
   const renderCategoryRow = (item: TaxonomyItem, isParent: boolean, hasChildren = false) => {

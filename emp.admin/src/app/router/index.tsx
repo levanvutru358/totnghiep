@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { Box, Heading, Text, VStack } from '@chakra-ui/react'
 import { AdminLayout } from '../../shared/layout/admin-layout'
 import { LoginPage } from '../../features/auth/pages/login-page'
 import { DashboardPage } from '../../features/dashboard/pages/dashboard-page'
@@ -22,15 +21,6 @@ import { MarketingPage } from '../../features/marketing/pages/marketing-page'
 import { ProtectedRoute } from './protected-route'
 import { PermissionRoute } from './permission-route'
 import { ROUTES } from './route-names'
-
-const PlaceholderPage = ({ title }: { title: string }) => (
-  <Box bg="surface.card" borderWidth="1px" borderColor="gray.200" borderRadius="lg" p={6}>
-    <VStack align="start">
-      <Heading size="md">{title}</Heading>
-      <Text color="text.secondary">Phân hệ này đã được tạo khung và sẵn sàng triển khai.</Text>
-    </VStack>
-  </Box>
-)
 
 export const AppRouter = () => {
   return (
